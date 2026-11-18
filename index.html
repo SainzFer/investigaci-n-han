@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tecnologías WAN: PPP, xDSL, Frame Relay, ISDN y ATM</title>
+<style>
+:root{--ink:#172033;--muted:#58657a;--blue:#175cd3;--pale:#eef4ff;--line:#dce3ee;--bg:#f6f8fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#102a56,#1765b5);color:white;padding:64px 22px}
+.hero{max-width:1050px;margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:700;color:#bcd6ff}
+h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.12;margin:12px 0 18px}.hero p{max-width:760px;color:#e4efff;font-size:1.12rem}
+nav{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+nav div{max-width:1050px;margin:auto;padding:12px 20px;display:flex;gap:16px;flex-wrap:wrap}
+nav a{color:var(--blue);font-weight:650;text-decoration:none;font-size:.92rem}
+main{max-width:1050px;margin:34px auto;padding:0 20px}
+section,.intro,.compare,.sources{background:white;border:1px solid var(--line);border-radius:18px;padding:28px;margin:22px 0;box-shadow:0 8px 24px rgba(20,40,80,.045)}
+h2{font-size:1.8rem;margin:0 0 12px}h3{font-size:1.15rem;margin:22px 0 6px;color:#123e7b}
+p{margin:9px 0}.muted{color:var(--muted)}.tag{display:inline-block;background:var(--pale);color:#174ea6;padding:4px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
+.diagram{margin:20px 0;padding:18px;background:#f3f7fd;border:1px dashed #b8c9e4;border-radius:14px;text-align:center}
+.flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}.node{background:white;border:1px solid #9db6dc;border-radius:10px;padding:12px 16px;font-weight:650}.arrow{font-size:1.4rem;color:var(--blue)}
+ul{padding-left:22px}li{margin:5px 0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f0f5fc}
+a{color:#1458b8}.media{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.media a{display:inline-block;padding:10px 14px;border:1px solid #b9cbe5;border-radius:10px;text-decoration:none;background:#f8fbff;font-weight:650}
+footer{text-align:center;color:var(--muted);padding:32px 20px}
+@media(max-width:650px){section,.intro,.compare,.sources{padding:20px}table{font-size:.85rem}th,td{padding:8px}}
+</style>
+</head>
+<body>
+<header><div class="hero">
+<div class="eyebrow">Investigación · Redes de computadoras</div>
+<h1>Tecnologías WAN</h1>
+<p>PPP, xDSL, Frame Relay, ISDN y ATM: cómo funcionan, dónde se implementaron y qué papel desempeñan en la evolución de las redes de área amplia.</p>
+<p><strong>Objetivo:</strong> comprender los principios de estas tecnologías, sus componentes y sus escenarios de uso, distinguiendo las soluciones históricas de las que todavía pueden encontrarse en redes actuales.</p>
+</div></header>
+<nav><div>
+<a href="#generalidades">Generalidades</a><a href="#ppp">PPP</a><a href="#xdsl">xDSL</a><a href="#frame">Frame Relay</a><a href="#isdn">ISDN</a><a href="#atm">ATM</a><a href="#comparacion">Comparación</a><a href="#fuentes">Fuentes</a>
+</div></nav>
+<main>
+<div class="intro" id="generalidades">
+<span class="tag">Introducción</span><h2>¿Qué es una WAN?</h2>
+<p>Una <strong>WAN (Wide Area Network o red de área amplia)</strong> conecta redes locales y dispositivos que se encuentran separados por grandes distancias geográficas. Puede abarcar ciudades, países o continentes y normalmente utiliza infraestructura de operadores de telecomunicaciones, enlaces dedicados, fibra óptica, cobre o radio.</p>
+<p>Las tecnologías WAN definen distintas maneras de transportar información, establecer conexiones, identificar destinos y administrar el ancho de banda. Las cinco tecnologías de esta investigación no son equivalentes: PPP es un protocolo de enlace; xDSL es una familia de tecnologías de acceso; Frame Relay y ATM son tecnologías de conmutación; e ISDN es una arquitectura de telecomunicaciones digital.</p>
+<div class="diagram"><div class="flow"><div class="node">LAN de oficina A</div><div class="arrow">⇄</div><div class="node">Red del operador / WAN</div><div class="arrow">⇄</div><div class="node">LAN de oficina B</div></div><p class="muted">Esquema conceptual de una WAN que interconecta sedes distantes.</p></div>
+<h3>¿Para qué se utilizan?</h3><ul><li>Interconectar sucursales y centros de datos.</li><li>Permitir acceso remoto a servicios corporativos.</li><li>Transportar voz, video y datos entre ubicaciones.</li><li>Conectar usuarios residenciales o empresariales con redes de proveedores.</li></ul>
+</div>
+
+<section id="ppp"><span class="tag">Protocolo de enlace</span><h2>1. PPP — Point-to-Point Protocol</h2>
+<p><strong>Generalidades.</strong> PPP es un protocolo de capa de enlace de datos diseñado para transportar datagramas de distintos protocolos de red a través de un enlace punto a punto. Se estandarizó en el RFC 1661. Puede funcionar sobre enlaces seriales síncronos o asíncronos y se utilizó ampliamente en conexiones de acceso telefónico y enlaces WAN.</p>
+<h3>Función y funcionamiento</h3><p>PPP encapsula los paquetes y establece parámetros de comunicación entre dos extremos. Sus componentes principales son:</p>
+<ul><li><strong>LCP (Link Control Protocol):</strong> establece, configura, prueba y termina el enlace.</li><li><strong>Autenticación opcional:</strong> puede utilizar PAP o CHAP para comprobar la identidad del extremo remoto.</li><li><strong>NCP (Network Control Protocol):</strong> configura los protocolos de capa de red, por ejemplo IP.</li></ul>
+<div class="diagram"><div class="flow"><div class="node">Router A</div><div class="arrow">⇄ PPP ⇄</div><div class="node">Router B</div></div><p class="muted">Primero se negocia el enlace con LCP; después puede autenticarse el par y NCP configura el protocolo de red.</p></div>
+<h3>Implementación</h3><p>Se requiere una interfaz compatible en cada extremo y un medio físico o lógico punto a punto. En routers, se selecciona la encapsulación PPP en la interfaz correspondiente y, si se desea, se configura autenticación. Un ejemplo didáctico de Cisco IOS es:</p>
+<pre><code>interface serial 0/0/0
+ encapsulation ppp
+ ppp authentication chap</code></pre>
+<p>Los comandos concretos dependen del equipo, del sistema operativo y del tipo de interfaz. PPP también puede utilizarse con ISDN y existen variantes como Multilink PPP para agrupar varios enlaces.</p>
+<h3>Casos de uso</h3><ul><li>Enlaces seriales punto a punto entre routers.</li><li>Acceso remoto de banda ancha o telefónico en arquitecturas heredadas.</li><li>Autenticación y negociación de parámetros entre dos dispositivos.</li><li>Multilink PPP para combinar capacidad de varios enlaces compatibles.</li></ul>
+<div class="media"><a href="https://www.rfc-editor.org/rfc/rfc1661" target="_blank" rel="noopener">Leer estándar RFC 1661</a><a href="https://www.youtube.com/results?search_query=PPP+Point+to+Point+Protocol+networking+explained" target="_blank" rel="noopener">Videos explicativos sobre PPP ↗</a></div>
+</section>
+
+<section id="xdsl"><span class="tag">Acceso de banda ancha</span><h2>2. xDSL — Digital Subscriber Line</h2>
+<p><strong>Generalidades.</strong> xDSL es el nombre colectivo de tecnologías que transmiten datos digitales a través del par de cobre de la línea telefónica. La “x” representa variantes como ADSL, ADSL2+, SDSL y VDSL. Aprovechan frecuencias distintas a las utilizadas por la voz telefónica, por lo que ciertos servicios pueden compartir el mismo cable mediante filtros o divisores.</p>
+<h3>Función y funcionamiento</h3><p>Un módem DSL modula y demodula señales digitales sobre el cable de cobre. En la central del proveedor, un equipo DSLAM concentra las líneas de muchos abonados y las conecta a la red del operador. ADSL ofrece normalmente mayor velocidad de descarga que de subida; VDSL puede proporcionar velocidades superiores, pero suele requerir distancias más cortas entre el usuario y el equipo del proveedor. La velocidad real depende de la variante, la calidad del cableado, la interferencia y la distancia.</p>
+<div class="diagram"><div class="flow"><div class="node">Computadora / Wi-Fi</div><div class="arrow">⇄</div><div class="node">Módem DSL</div><div class="arrow">⇄ par de cobre</div><div class="node">DSLAM</div><div class="arrow">⇄</div><div class="node">Red del ISP</div></div><p class="muted">Arquitectura simplificada de acceso xDSL.</p></div>
+<h3>Implementación</h3><ul><li>Una línea telefónica de cobre compatible y un servicio DSL contratado.</li><li>Un módem/router DSL compatible con el perfil del proveedor.</li><li>Filtros o splitter cuando se comparte el cable con telefonía analógica.</li><li>En la central, un DSLAM y conexión de agregación hacia la red del operador.</li></ul>
+<h3>Casos de uso</h3><ul><li>Acceso a Internet residencial y de pequeñas oficinas donde existe cobre telefónico.</li><li>Conectividad de última milla en zonas sin despliegue de fibra.</li><li>Servicios ADSL asimétricos para navegación y descarga; VDSL para mayores velocidades en bucles cortos.</li></ul>
+<p><strong>Situación actual:</strong> xDSL fue una tecnología clave para la expansión de la banda ancha. En muchos mercados está siendo reemplazada por fibra hasta el hogar (FTTH), cable y acceso inalámbrico fijo.</p>
+<div class="media"><a href="https://digital-strategy.ec.europa.eu/en/policies/broadband-technology-overview" target="_blank" rel="noopener">Panorama de tecnologías de banda ancha</a><a href="https://www.youtube.com/results?search_query=how+DSL+ADSL+DSLAM+works" target="_blank" rel="noopener">Videos: cómo funciona DSL ↗</a></div>
+</section>
+
+<section id="frame"><span class="tag">Conmutación de paquetes</span><h2>3. Frame Relay</h2>
+<p><strong>Generalidades.</strong> Frame Relay es una tecnología WAN de capa 2 que transporta tramas de longitud variable a través de una infraestructura compartida del proveedor. Se diseñó para interconectar redes de datos con menor sobrecarga que tecnologías anteriores como X.25, asumiendo que los enlaces digitales modernos tendrían menos errores.</p>
+<h3>Función y funcionamiento</h3><p>El proveedor crea circuitos virtuales entre los equipos del cliente. Los más habituales fueron los <strong>PVC (Permanent Virtual Circuits)</strong>, configurados de forma permanente. Cada circuito se identifica localmente mediante un <strong>DLCI (Data-Link Connection Identifier)</strong>. El servicio puede definir una tasa de información comprometida (CIR), que representa la capacidad acordada bajo las condiciones del contrato.</p>
+<div class="diagram"><div class="flow"><div class="node">Router sede A<br><small>DLCI  DLCI</small></div><div class="arrow">⇄</div><div class="node">Nube Frame Relay<br><small>conmutadores</small></div><div class="arrow">⇄</div><div class="node">Router sede B</div></div><p class="muted">Una nube del proveedor puede enlazar varias sedes mediante circuitos virtuales.</p></div>
+<h3>Implementación</h3><ul><li>Contratar un servicio Frame Relay con el operador y definir los PVC.</li><li>Conectar routers de cliente (DTE) a la red del proveedor (DCE).</li><li>Configurar encapsulación Frame Relay, DLCI, subinterfaces y mapeos de direcciones cuando sean necesarios.</li><li>Verificar el estado de los circuitos mediante mecanismos de gestión como LMI.</li></ul>
+<h3>Casos de uso</h3><ul><li>Interconexión de sucursales bancarias, comercios y oficinas corporativas.</li><li>Topologías hub-and-spoke para conectar varias sedes con una oficina central.</li><li>Redes empresariales que necesitaban enlaces virtuales administrados por un operador.</li></ul>
+<p><strong>Situación actual:</strong> es una tecnología heredada. Los operadores han migrado la mayoría de estos servicios a Ethernet, MPLS, VPN IP y otras soluciones más modernas.</p>
+<div class="media"><a href="https://www.cisco.com/c/en/us/support/docs/wan/frame-relay/16563-12.html" target="_blank" rel="noopener">Guía técnica de Frame Relay</a><a href="https://www.youtube.com/results?search_query=Frame+Relay+DLCI+PVC+explained" target="_blank" rel="noopener">Videos: PVC y DLCI ↗</a></div>
+</section>
+
+<section id="isdn"><span class="tag">Telefonía digital integrada</span><h2>4. ISDN — Integrated Services Digital Network</h2>
+<p><strong>Generalidades.</strong> ISDN (RDSI en español) es un conjunto de estándares para transmitir voz, datos, texto e imágenes como señales digitales sobre la red telefónica. Su propósito fue integrar distintos servicios en una misma infraestructura digital y ofrecer conexiones con establecimiento de llamada.</p>
+<h3>Función y funcionamiento</h3><p>ISDN utiliza canales lógicos. Los canales <strong>B (Bearer)</strong> transportan voz o datos, normalmente a 64 kbit/s; el canal <strong>D</strong> transporta señalización y control. Sus interfaces más conocidas son:</p>
+<ul><li><strong>BRI (Basic Rate Interface):</strong> 2B+D: dos canales B de 64 kbit/s y un canal D de 16 kbit/s.</li><li><strong>PRI (Primary Rate Interface):</strong> en T1, 23B+D; en E1, 30B+D. El canal D suele ser de 64 kbit/s.</li></ul>
+<div class="diagram"><div class="flow"><div class="node">BRI</div><div class="arrow">→</div><div class="node">B: voz / datos<br>D: señalización</div><div class="arrow">→</div><div class="node">Red telefónica digital</div></div><p class="muted">Los canales B llevan la información del usuario y el canal D coordina el establecimiento de la comunicación.</p></div>
+<h3>Implementación</h3><p>Se necesitaba solicitar al operador una línea ISDN, instalar un equipo terminal o router con interfaz BRI/PRI y configurar parámetros de señalización, numeración y, en su caso, encapsulación PPP. La disponibilidad y los parámetros dependían del país y del proveedor.</p>
+<h3>Casos de uso</h3><ul><li>Telefonía empresarial y centralitas digitales.</li><li>Videoconferencia y transmisión de datos antes de la banda ancha generalizada.</li><li>Acceso remoto y enlaces de respaldo para routers.</li><li>Conexiones digitales para empresas que requerían varios canales simultáneos.</li></ul>
+<p><strong>Situación actual:</strong> ISDN ha sido retirado o está en proceso de retiro en numerosos países, sustituido por SIP, VoIP, fibra y redes IP. Aún puede aparecer en instalaciones heredadas.</p>
+<div class="media"><a href="https://www.cisco.com/c/es_mx/tech/dial-access/integrated-services-digital-networks-isdn-channel-associated-signaling-cas/index.html" target="_blank" rel="noopener">Documentación ISDN de Cisco</a><a href="https://www.youtube.com/results?search_query=ISDN+BRI+PRI+2B+D+explained" target="_blank" rel="noopener">Videos: BRI y PRI ↗</a></div>
+</section>
+
+<section id="atm"><span class="tag">Conmutación de celdas</span><h2>5. ATM — Asynchronous Transfer Mode</h2>
+<p><strong>Generalidades.</strong> ATM es una tecnología de conmutación orientada a conexión que transporta información en unidades de tamaño fijo llamadas celdas. Cada celda mide <strong>53 bytes</strong>: 5 bytes de encabezado y 48 bytes de carga útil. Fue diseñada para integrar voz, video y datos sobre una infraestructura común con mecanismos de calidad de servicio (QoS).</p>
+<h3>Función y funcionamiento</h3><p>Antes de transmitir, se establece un circuito virtual. Los datos se segmentan en celdas y los conmutadores ATM las encaminan usando identificadores de ruta virtual (VPI) y canal virtual (VCI). El tamaño fijo facilita el procesamiento en hardware y permite controlar características como retardo, variación del retardo y pérdida de celdas.</p>
+<div class="diagram"><div class="flow"><div class="node">Voz / video / datos</div><div class="arrow">→</div><div class="node">Segmentación<br>en celdas de 53 B</div><div class="arrow">→</div><div class="node">Switch ATM<br>VPI / VCI</div><div class="arrow">→</div><div class="node">Destino</div></div><p class="muted">Esquema del transporte de información mediante celdas ATM.</p></div>
+<h3>Implementación</h3><ul><li>Equipos de acceso y conmutadores ATM compatibles.</li><li>Definición de circuitos virtuales permanentes (PVC) o conmutados (SVC).</li><li>Configuración de identificadores VPI/VCI y parámetros de tráfico/QoS.</li><li>Adaptación de los datos a celdas mediante una capa de adaptación ATM (AAL).</li></ul>
+<h3>Casos de uso</h3><ul><li>Redes troncales de operadores de telecomunicaciones.</li><li>Transporte integrado de voz, video y datos.</li><li>Infraestructura de banda ancha y redes empresariales en las décadas de 1990 y 2000.</li><li>Transporte en redes DSL antiguas, donde ATM podía utilizarse dentro de la red del proveedor.</li></ul>
+<p><strong>Situación actual:</strong> ATM fue desplazada en gran medida por Ethernet, IP/MPLS y tecnologías ópticas más eficientes, aunque todavía puede encontrarse en sistemas heredados.</p>
+<div class="media"><a href="https://technav.ieee.org/topic/asynchronous-transfer-mode/" target="_blank" rel="noopener">Descripción técnica ATM (IEEE)</a><a href="https://www.youtube.com/results?search_query=ATM+network+53+byte+cells+explained" target="_blank" rel="noopener">Videos: celdas ATM ↗</a></div>
+</section>
+
+<div class="compare" id="comparacion"><h2>Comparación general</h2>
+<table><thead><tr><th>Tecnología</th><th>Tipo</th><th>Unidad / mecanismo</th><th>Uso característico</th><th>Situación</th></tr></thead><tbody>
+<tr><td>PPP</td><td>Protocolo de enlace</td><td>Encapsulación en enlace punto a punto</td><td>Conectar dos extremos y negociar parámetros</td><td>Continúa en usos específicos</td></tr>
+<tr><td>xDSL</td><td>Acceso de banda ancha</td><td>Señales digitales sobre par de cobre</td><td>Internet de última milla</td><td>En retirada frente a fibra y otras opciones</td></tr>
+<tr><td>Frame Relay</td><td>Conmutación de paquetes</td><td>Tramas y circuitos virtuales / DLCI</td><td>Conectar sucursales</td><td>Mayormente obsoleta</td></tr>
+<tr><td>ISDN</td><td>Red telefónica digital</td><td>Canales B y D; BRI / PRI</td><td>Voz y datos digitales</td><td>Mayormente sustituida</td></tr>
+<tr><td>ATM</td><td>Conmutación de celdas</td><td>Celdas fijas de 53 bytes; VPI / VCI</td><td>Transporte integrado con QoS</td><td>Mayormente heredada</td></tr>
+</tbody></table>
+<h3>Conclusión</h3><p>Las tecnologías WAN estudiadas respondieron a necesidades distintas de conectividad. PPP estandarizó la comunicación punto a punto; xDSL aprovechó el cableado telefónico para ofrecer banda ancha; Frame Relay permitió interconectar sedes mediante circuitos virtuales; ISDN digitalizó servicios telefónicos; y ATM buscó transportar distintos tipos de tráfico con calidad de servicio. Aunque varias han sido sustituidas por redes IP, Ethernet y fibra óptica, conocerlas permite comprender la evolución de las telecomunicaciones y reconocer infraestructuras heredadas.</p>
+</div>
+
+<div class="sources" id="fuentes"><h2>Fuentes de consulta</h2><ol>
+<li>Simpson, W. (1994). <em>RFC 1661: The Point-to-Point Protocol (PPP)</em>. RFC Editor. <a href="https://www.rfc-editor.org/rfc/rfc1661">https://www.rfc-editor.org/rfc/rfc1661</a></li>
+<li>Cisco. <em>Point-to-Point Protocol (PPP)</em>. <a href="https://www.cisco.com/c/en/us/tech/wan/point-to-point-protocol-ppp/index.html">Documentación técnica</a>.</li>
+<li>Comisión Europea. <em>Broadband: Technology overview</em>. <a href="https://digital-strategy.ec.europa.eu/en/policies/broadband-technology-overview">Panorama de banda ancha</a>.</li>
+<li>Cisco. <em>Comprehensive Guide to Configuring and Troubleshooting Frame Relay</em>. <a href="https://www.cisco.com/c/en/us/support/docs/wan/frame-relay/16563-12.html">Guía técnica</a>.</li>
+<li>Cisco. <em>ISDN, CAS / BRI / PRI</em>. <a href="https://www.cisco.com/c/es_mx/tech/dial-access/integrated-services-digital-networks-isdn-channel-associated-signaling-cas/index.html">Documentación ISDN</a>.</li>
+<li>IEEE Technology Navigator. <em>Asynchronous Transfer Mode</em>. <a href="https://technav.ieee.org/topic/asynchronous-transfer-mode/">Descripción ATM</a>.</li>
+<li>Cisco. <em>Wide-Area Networking Overview</em>. <a href="https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/lan-wan/lan-wan/m_wan-lserv-overview-xe.html">Guía general de tecnologías WAN</a>.</li>
+</ol><p class="muted">Los enlaces de video llevan a búsquedas temáticas de YouTube para que el estudiante pueda elegir material audiovisual pertinente y disponible. Los diagramas incluidos son esquemas originales simplificados para fines didácticos.</p></div>
+</main>
+<footer>Investigación académica · Tecnologías WAN · PPP · xDSL · Frame Relay · ISDN · ATM</footer>
+</body></html>
